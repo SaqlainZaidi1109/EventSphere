@@ -5,6 +5,9 @@ import About from './pages/About'
 import SignIn from './pages/SignIn'
 import Header from './components/Header'
 import SignUpAs from './pages/SignUpAs'
+import SignUpAsOrganizer from './pages/SignUpAsOrganizer'
+import SignUpAsAttendee from './pages/SignUpAsAttendee'
+import SignUpAsExhibitor from './pages/SignUpAsExhibitor'
 
 export default function App() {
   return (
@@ -14,7 +17,10 @@ export default function App() {
       <Route path='/' element={<Home/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/sign-in' element={<SignIn/>}/>
-      <Route path='/sign-up' element={<SignUpAs/>}/>
+      <Route path='/signupas' element={<SignUpAs/>}/>
+      <Route path='/signupasorganizer' element={<SignUpAsOrganizer/>}/>
+      <Route path='/signupasattendee' element={<SignUpAsAttendee/>}/>
+      <Route path='/signupasexhibitor' element={<SignUpAsExhibitor/>}/>
     </Routes>
     </BrowserRouter>
   )
