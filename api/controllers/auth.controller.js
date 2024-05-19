@@ -1,13 +1,15 @@
 // import User from './models/user.models.js'
 import User from '../models/user.model.js'
 import bcryptjs from 'bcryptjs'
+import { errorHandler } from '../utils/error.js';
 
-export const signupOrganizer = async (req, res)=>{
+//next so we can use the middleware
+export const signupOrganizer = async (req, res, next)=>{
 console.log(req.body) //this to check in terminal
 //saving data in database
 const {username, email, password} = req.body;
 if(!username || !email || !password || username==='' || email==='' || password===''){
-    return res.status(400).json({message:"All fields are required"})
+    next(errorHandler(400,'All fields are required.'))
 }
 
 const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -23,7 +25,7 @@ try {
     await newUser.save();
     res.json('Organizer Sign Up successful')
 } catch (error) {
-    res.status(500).json({message:error.message})
+    next(error)
 }
 }
 

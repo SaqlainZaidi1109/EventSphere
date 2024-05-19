@@ -22,3 +22,15 @@ app.listen(3000, () => console.log('Server is running on port 3000!'))
 // this is after making routes folder and userRoute, to test the route/api
 app.use('/api/user',userRoutes) //here we used app.use not get because we are using get request in user.routes.js
 app.use('/api/auth',authRoutes) 
+
+
+//creating a middleware function to deal with the error
+app.use((err,req,res,next)=>{
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+    res.status(statusCode).json({
+        success:false,
+        statusCode,
+        message
+    })
+})
