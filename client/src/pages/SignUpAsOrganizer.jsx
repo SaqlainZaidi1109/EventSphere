@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
-import { Alert, Card, Label, TextInput } from "flowbite-react";
+import { Alert, Card, Label, Spinner, TextInput } from "flowbite-react";
 import { MdDoubleArrow } from "react-icons/md";
 import { FaAngleDoubleLeft } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 export default function SignUpAsOrganizer() {
 
   const [formData, setFormData] = useState({})
   const [errorMessage, setErrorMessage] = useState(null)
   const [loading, setLoading]=useState(false)
+  const Navigate = useNavigate();
   const handleChange =(e)=>{
     // console.log(e.target.value)
     setFormData({...formData, [e.target.id]:e.target.value.trim()})
@@ -18,6 +20,8 @@ export default function SignUpAsOrganizer() {
       return setErrorMessage('Please fill out all the fields.')
     }
     try {
+      setLoading(true)
+    setErrorMessage(null)
       const res = await fetch('api/auth/signupOrganizer',{
         method:"POST",
         headers:{'Content-type':'application/json'},
@@ -25,11 +29,16 @@ export default function SignUpAsOrganizer() {
       })
 
       const data = await res.json();
-      if(data.sucess===false){
-        return
-      }
-    } catch (error) {
-      
+       if(data.success===false){
+        return setErrorMessage(data.message)
+       }
+       setLoading(false)
+       if(res.ok){
+        Navigate('/signinasorganizer')
+       }
+      } catch (error) {
+        setErrorMessage(error.message)
+        setLoading(false)
     }
   }
  console.log(formData)
@@ -58,9 +67,21 @@ export default function SignUpAsOrganizer() {
       </div> 
       </div> 
       <div className='flex justify-between mr-9 gap-5 ml-9'>
-     <button className="flex items-center mt-5 bg-white shadow-sm  text-black gap-1 px-4 py-2 cursor-pointer text-gray-800 font-Teachers tracking-widest rounded-md hover:bg-teal-400 hover:text-white duration-200 hover:gap-2 hover:translate-x-1">
-       Sign Up
-       <MdDoubleArrow />
+     <button className="flex items-center mt-5 bg-white shadow-sm  text-black gap-1 px-4 py-2 cursor-pointer text-gray-800 font-Teachers tracking-widest rounded-md hover:bg-teal-400 hover:text-white duration-200 hover:gap-2 hover:translate-x-1" disabled={loading}>
+      {loading ? (
+        <>
+        <Spinner size='sm'/>
+        <span className='pl-3'>Loading...</span>
+        </>
+      ) :
+    (
+      <>
+      Sign Up
+      <MdDoubleArrow />
+      </>   )
+     
+      }
+      
       </button>
      <Link to='/signupas' className="flex items-center mt-5 bg-white shadow-sm  text-black gap-1 px-4 py-2 cursor-pointer text-gray-800 font-Teachers tracking-widest rounded-md hover:bg-teal-400 hover:text-white duration-200 hover:gap-2 hover:-translate-x-1">
      <FaAngleDoubleLeft />Go Back

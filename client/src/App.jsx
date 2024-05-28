@@ -8,6 +8,7 @@ import SignUpAs from './pages/SignUpAs'
 import SignUpAsOrganizer from './pages/SignUpAsOrganizer'
 import SignUpAsAttendee from './pages/SignUpAsAttendee'
 import SignUpAsExhibitor from './pages/SignUpAsExhibitor'
+import SignInAsOrganizer from './pages/SignInAsOrganizer'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
       <Route path='/signupasorganizer' element={<SignUpAsOrganizer/>}/>
       <Route path='/signupasattendee' element={<SignUpAsAttendee/>}/>
       <Route path='/signupasexhibitor' element={<SignUpAsExhibitor/>}/>
+      <Route path='/signinasorganizer' element={<SignInAsOrganizer/>}/>
     </Routes>
     </BrowserRouter>
   )
