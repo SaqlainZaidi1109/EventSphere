@@ -9,7 +9,7 @@ export default function SignIn() {
      <div className='flex flex-col sm:flex-row sm:justify-center justify-center items-center gap-4'>
       <h1 className='font-Teachers text-2xl'>Sign-in as:</h1>
       <Button.Group outline>
-        <Button color="gray">Organizer</Button>
+        <Button color="gray"><Link to='/signinasorganizer'>Organizer</Link></Button>
         <Button color="gray">Exhibitor</Button>
         <Button color="gray">Attendee</Button>
       </Button.Group>
