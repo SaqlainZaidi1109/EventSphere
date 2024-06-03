@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/user.routes.js'
 import authRoutes from './routes/auth.route.js'
+import exhibitorRoutes from './routes/exhibitor.route.js'
 
 dotenv.config()
 
@@ -34,3 +35,6 @@ app.use((err,req,res,next)=>{
         message
     })
 })
+
+//Exhibitor sign-up begins from here
+app.use('/api/exhibitor',exhibitorRoutes)
